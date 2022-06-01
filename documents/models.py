@@ -24,7 +24,7 @@ class Category(CreatedUpdatedTimeMixin):
 
 
 class Document(CreatedUpdatedTimeMixin):
-    category = models.ForeignKey(Category, on_delete=models.CASCADE, verbose_name='Категория')
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='documents', verbose_name='Категория')
     code = models.CharField(max_length=255, verbose_name='Обозначение документа')
     name = models.CharField(max_length=255, verbose_name='Наименование документа')
     file = models.FileField(

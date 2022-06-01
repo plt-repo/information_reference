@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>{{ category_name }}</h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="{% url 'index' %}">Home</a></li>
+              <li class="breadcrumb-item active">{{ category_name }}</li>
+            </ol>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">Результаты</h3>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body">
+                <table id="example1" class="table table-bordered table-striped">
+                  <thead>
+                  <tr>
+                    <th>Обозначение документа</th>
+                    <th>Наименование документа</th>
+                    <th>Файл документа</th>
+                    <th>Дата создания</th>
+                    <th>Дата обновления</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  {% for category_document in category_documents %}
+                      <tr>
+                        <td>{{ category_document.code }}</td>
+                        <td>{{ category_document.name }}</td>
+                        <td>
+                            <a class="btn btn-app" href="{% url 'download' category_document.id %}">
+                                <i class="fas fa-save"></i> Скачать
+                            </a>
+                        </td>
+                        <td>{{ category_document.created_at|date:'Y-m-d H:i' }}</td>
+                        <td>{{ category_document.updated_at|date:'Y-m-d H:i' }}</td>
+                      </tr>
+                  {% endfor %}
+                  </tbody>
+                  <tfoot>
+                  <tr>
+                    <th>Обозначение документа</th>
+                    <th>Наименование документа</th>
+                    <th>Файл документа</th>
+                    <th>Дата создания</th>
+                    <th>Дата обновления</th>
+                  </tr>
+                  </tfoot>
+                </table>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+          <!-- /.col -->
+        </div>
+        <!-- /.row -->
+      </div>
+      <!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+{% endblock %}
+{% block extra_script %}
+    <script>
+      $(function () {
+        $("#example1").DataTable({
+          "responsive": true, "lengthChange": false, "autoWidth": false,
+          "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+        }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+      });
+    </script>
+{% endblock %}
