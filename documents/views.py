@@ -50,6 +50,8 @@ class DocumentView(LoginRequiredMixin, View):
                 'Дата обновления': document.updated_at,
             },
             'document_id': document.id,
+            'document_category_name': document.category.name,
+            'document_category_id': document.category.id,
             'document_code': document.code,
             'title': f'САНАЭксперт | {document.code}',
             'doc_change_history': doc_change_history
