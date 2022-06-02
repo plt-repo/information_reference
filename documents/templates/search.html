@@ -12,41 +12,45 @@
     <section class="content">
         <div class="container-fluid">
             <form action="{% url 'search' %}" method="POST">
+                {% csrf_token %}
                 <div class="row">
                     <div class="col-md-10 offset-md-1">
                         <div class="row">
                             <div class="col-6">
                                 <div class="form-group">
-                                    <label>Категория:</label>
-                                    <select class="select2" multiple="multiple" data-placeholder="Все" style="width: 100%;">
-                                        <option>Text only</option>
-                                        <option>Images</option>
-                                        <option>Video</option>
+                                    <label>Категории:</label>
+                                    <select class="select2" name="categories" multiple="multiple" data-placeholder="Все" style="width: 100%;">
+                                        {% for category_id, category_name in categories.items %}
+                                            <option {% if category_id in selected_categories %}selected{% endif %} value="{{ category_id }}">{{ category_name }}</option>
+                                        {% endfor %}
                                     </select>
                                 </div>
                             </div>
                             <div class="col-3">
                                 <div class="form-group">
-                                    <label>Sort Order:</label>
-                                    <select class="select2" style="width: 100%;">
-                                        <option selected>ASC</option>
-                                        <option>DESC</option>
+                                    <label>Порядок сортировки:</label>
+                                    <select class="select2" name="sort_order" style="width: 100%;">
+                                        <option value="" selected>ASC</option>
+                                        <option value="-">DESC</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="col-3">
                                 <div class="form-group">
-                                    <label>Order By:</label>
-                                    <select class="select2" style="width: 100%;">
-                                        <option selected>Title</option>
-                                        <option>Date</option>
+                                    <label>Сортировать по:</label>
+                                    <select class="select2" name="ordering_field" style="width: 100%;">
+                                        {% for field_code, field_name in ordering_fields.items %}
+                                            <option value="{{ field_code }}">{{ field_name }}</option>
+                                        {% endfor %}
                                     </select>
                                 </div>
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="input-group input-group-lg">
-                                <input type="search" class="form-control form-control-lg" placeholder="Type your keywords here" value="Lorem ipsum">
+                                <input type="search" name="search_text" required
+                                       class="form-control form-control-lg"
+                                       placeholder="Введите наименование или обозначение документа" value="{% if search_text %}{{ search_text }}{% else %}СНиП 11-04-2003{% endif %}">
                                 <div class="input-group-append">
                                     <button type="submit" class="btn btn-lg btn-default">
                                         <i class="fa fa-search"></i>
@@ -59,47 +63,46 @@
             </form>
             <div class="row mt-3">
                 <div class="col-md-10 offset-md-1">
-                    <div class="list-group">
-                        <div class="list-group-item">
-                            <div class="row">
-                                <div class="col px-4">
-                                    <div>
-                                        <div class="float-right">2021-04-20 04:04pm</div>
-                                        <h3>Lorem ipsum dolor sit amet</h3>
-                                        <p class="mb-0">consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p>
-                                    </div>
-                                </div>
+                    {% for document in documents %}
+                        <div class="card card-default collapsed-card">
+                          <div class="card-header">
+                            <h3 class="card-title"><a href="{% url 'document' document.id %}">{{ document.code }}</a></h3>
+
+                            <div class="card-tools">
+                              <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                <i class="fas fa-plus"></i>
+                              </button>
                             </div>
-                        </div>
-                        <div class="list-group-item">
+                          </div>
+                          <!-- /.card-header -->
+                          <div class="card-body">
                             <div class="row">
-                                <div class="col-auto">
-                                    <img class="img-fluid" src="../../dist/img/photo1.png" alt="Photo" style="max-height: 160px;">
-                                </div>
-                                <div class="col px-4">
-                                    <div>
-                                        <div class="float-right">2021-04-20 10:14pm</div>
-                                        <h3>Lorem ipsum dolor sit amet</h3>
-                                        <p class="mb-0">consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p>
-                                    </div>
-                                </div>
+                              <table class="table table-bordered">
+                                <tbody>
+                                    {% for key, value in document.items %}
+                                        {% if key != 'id' and key != 'code' %}
+                                            <tr>
+                                                <td><b>{{ key }}</b></td>
+                                                {% if key == 'Файл документа' %}
+                                                    <td>
+                                                        <a class="btn btn-app" href="{% url 'download' document.id %}">
+                                                            <i class="fas fa-save"></i> Скачать
+                                                        </a>
+                                                    </td>
+                                                {% else %}
+                                                    <td>{{ value }}</td>
+                                                {% endif %}
+                                            </tr>
+                                        {% endif %}
+                                    {% endfor %}
+                                </tbody>
+                              </table>
                             </div>
+                            <!-- /.row -->
+                          </div>
+                          <!-- /.card-body -->
                         </div>
-                        <div class="list-group-item">
-                            <div class="row">
-                                <div class="col-auto">
-                                    <iframe width="240" height="160" src="https://www.youtube.com/embed/WEkSYw3o5is?controls=0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" class="border-0" allowfullscreen></iframe>
-                                </div>
-                                <div class="col px-4">
-                                    <div>
-                                        <div class="float-right">2021-04-20 11:54pm</div>
-                                        <h3>Lorem ipsum dolor sit amet</h3>
-                                        <p class="mb-0">consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    {% endfor %}
                 </div>
             </div>
         </div>

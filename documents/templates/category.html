@@ -81,6 +81,13 @@
     <script>
       $(function () {
         $("#example1").DataTable({
+          "language": {
+            "info": "Показано с _START_ по _END_ из _TOTAL_ записей",
+            "paginate": {
+              "previous": "Предыдущая страница",
+              "next": "Следующая страница",
+            }
+          },
           "responsive": true, "lengthChange": false, "autoWidth": false,
           "buttons": ["copy", "csv", "excel", "pdf",
           {

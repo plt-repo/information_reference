@@ -51,8 +51,55 @@ class DocumentView(LoginRequiredMixin, View):
 
 class SearchView(LoginRequiredMixin, View):
     def get(self, request, *args, **kwargs):
+        categories = {category['id']: category['name'] for category in Category.objects.values('id', 'name')}
+
         return render(request, "search.html", {
-            'title': f'САНАЭксперт | Поиск документов'
+            'title': f'САНАЭксперт | Поиск документов',
+            'categories': categories,
+            'ordering_fields': {
+                'code': 'Обозначение документа',
+                'name': 'Наименование документа',
+                'created_at': 'Дата создания',
+                'updated_at': 'Дата обновления',
+            },
+            'documents': []
+        })
+
+    def post(self, request, *args, **kwargs):
+        categories = request.POST.getlist('categories')
+        sort_order = request.POST['sort_order']
+        ordering_field = request.POST['ordering_field']
+        search_text = request.POST['search_text']
+        if categories:
+            queryset_name = Document.objects.filter(name__icontains=search_text, category_id__in=categories)
+            queryset_code = Document.objects.filter(code__icontains=search_text, category_id__in=categories)
+        else:
+            queryset_name = Document.objects.filter(name__icontains=search_text)
+            queryset_code = Document.objects.filter(code__icontains=search_text)
+        queryset = queryset_name.union(queryset_code).order_by(f"{sort_order}{ordering_field}")
+        documents = [{
+            'id': document.id,
+            'code': document.code,
+            'Категория': document.category.name,
+            'Наименование документа': document.name,
+            'Файл документа': '',
+            'Дата создания': document.created_at,
+            'Дата обновления': document.updated_at,
+        } for document in queryset.all()]
+        categories_for_select = {category['id']: category['name'] for category in Category.objects.values('id', 'name')}
+
+        return render(request, "search.html", {
+            'title': f'САНАЭксперт | Поиск документов',
+            'categories': categories_for_select,
+            'ordering_fields': {
+                'code': 'Обозначение документа',
+                'name': 'Наименование документа',
+                'created_at': 'Дата создания',
+                'updated_at': 'Дата обновления',
+            },
+            'documents': documents,
+            'search_text': search_text,
+            'selected_categories': {int(category) for category in categories}
         })
 
 
