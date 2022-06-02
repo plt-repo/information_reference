@@ -2,7 +2,6 @@ import os
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.models import User
 from django.views import View
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, Http404
@@ -68,10 +67,15 @@ class DownloadFileView(LoginRequiredMixin, View):
 class LoginView(View):
     def get(self, request, *args, **kwargs):
         return render(request, "login.html", {
-            'next': request.GET['next'] if request.GET.get('next') else '/'
+            'next': request.GET['next'] if request.GET.get('next') else '/',
+            'title': 'САНАЭксперт | Авторизация'
         })
 
     def post(self, request, *args, **kwargs):
+        key_translate = {
+            'username': 'Логин',
+            'password': 'Пароль',
+        }
         form = LoginForm(request.POST)
         next_page = request.POST['next_page'] if request.POST['next_page'] else '/'
         # check whether it's valid:
@@ -86,21 +90,32 @@ class LoginView(View):
                 return render(request, "login.html", {
                     'next': next_page,
                     'errors': {
-                        'username': '<ul class="errorlist"><li>Пользователь не найден! Пройдите регистрацию.</li></ul>'
+                        'Логин/Пароль': 'Вы ввели неверные данные!'
                     }
                 })
         else:
             return render(request, "login.html", {
                 'next': next_page,
-                'errors': form.errors
+                'errors': {key_translate[key]: error for key, error in form.errors.items()},
+                'title': 'САНАЭксперт | Авторизация'
             })
 
 
 class RegisterView(View):
     def get(self, request, *args, **kwargs):
-        return render(request, "register.html", {})
+        return render(request, "register.html", {
+            'title': 'САНАЭксперт | Регистрация'
+        })
 
     def post(self, request, *args, **kwargs):
+        key_translate = {
+            'username': 'Логин',
+            'first_name': 'Имя',
+            'last_name': 'Фамилия',
+            'email': 'Email',
+            'password1': 'Пароль',
+            'password2': 'Повторите пароль',
+        }
         form = SignUpForm(request.POST)
         if form.is_valid():
             form.save()
@@ -111,7 +126,8 @@ class RegisterView(View):
             return redirect('index')
         else:
             return render(request, "register.html", {
-                'errors': form.errors
+                'errors': {key_translate[key]: error for key, error in form.errors.items()},
+                'title': 'САНАЭксперт | Регистрация'
             })
 
 
@@ -125,5 +141,6 @@ class ContactUsView(LoginRequiredMixin, View):
     def get(self, request, *args, **kwargs):
         documents_by_categories_tree = get_documents_by_categories_tree()
         return render(request, "contact-us.html", {
-            'documents_by_categories_tree': documents_by_categories_tree
+            'documents_by_categories_tree': documents_by_categories_tree,
+            'title': 'САНАЭксперт | Поддержка'
         })
