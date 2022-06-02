@@ -28,6 +28,7 @@ class CategoryView(LoginRequiredMixin, View):
         return render(request, "category.html", {
             'category_name': category_name,
             'category_documents': category_documents,
+            'title': f'САНАЭксперт | {category_name}'
         })
 
 
@@ -43,13 +44,16 @@ class DocumentView(LoginRequiredMixin, View):
                 'Дата обновления': document.updated_at,
             },
             'document_id': document.id,
-            'document_code': document.code
+            'document_code': document.code,
+            'title': f'САНАЭксперт | {document.code}'
         })
 
 
 class SearchView(LoginRequiredMixin, View):
     def get(self, request, *args, **kwargs):
-        return render(request, "search.html", {})
+        return render(request, "search.html", {
+            'title': f'САНАЭксперт | Поиск документов'
+        })
 
 
 class DownloadFileView(LoginRequiredMixin, View):
@@ -90,7 +94,7 @@ class LoginView(View):
                 return render(request, "login.html", {
                     'next': next_page,
                     'errors': {
-                        'Логин/Пароль': 'Вы ввели неверные данные!'
+                        'Логин/Пароль': 'Ваша учетная запись не активирована!'
                     }
                 })
         else:
@@ -119,16 +123,23 @@ class RegisterView(View):
         form = SignUpForm(request.POST)
         if form.is_valid():
             form.save()
-            username = form.cleaned_data.get('username')
-            raw_password = form.cleaned_data.get('password1')
-            user = authenticate(username=username, password=raw_password)
-            login(request, user)
-            return redirect('index')
+            # username = form.cleaned_data.get('username')
+            # raw_password = form.cleaned_data.get('password1')
+            # user = authenticate(username=username, password=raw_password)
+            # login(request, user)
+            return redirect('register_success')
         else:
             return render(request, "register.html", {
                 'errors': {key_translate[key]: error for key, error in form.errors.items()},
                 'title': 'САНАЭксперт | Регистрация'
             })
+
+
+class RegisterSuccess(View):
+    def get(self, request, *args, **kwargs):
+        return render(request, "register-success.html", {
+            'title': 'САНАЭксперт | Успешная регистрация'
+        })
 
 
 class LogoutView(View):

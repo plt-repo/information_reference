@@ -18,7 +18,7 @@ from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
 from documents.views import IndexView, SearchView, LoginView, RegisterView, LogoutView, DocumentView, ContactUsView, \
-    DownloadFileView, CategoryView
+    DownloadFileView, CategoryView, RegisterSuccess
 
 admin.site.site_header = 'Админ-панель'
 
@@ -31,6 +31,7 @@ urlpatterns = [
     path('search', SearchView.as_view(), name='search'),
     path('accounts/login/', LoginView.as_view(), name='login'),
     path('register', RegisterView.as_view(), name='register'),
+    path('register-success', RegisterSuccess.as_view(), name='register_success'),
     path('logout', LogoutView.as_view(), name='logout'),
     path('contact-us', ContactUsView.as_view(), name='contact_us'),
 ]

@@ -10,7 +10,7 @@
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="{% url 'index' %}">Home</a></li>
+              <li class="breadcrumb-item"><a href="{% url 'index' %}">Главная</a></li>
               <li class="breadcrumb-item active">{{ category_name }}</li>
             </ol>
           </div>
@@ -42,7 +42,7 @@
                   <tbody>
                   {% for category_document in category_documents %}
                       <tr>
-                        <td>{{ category_document.code }}</td>
+                        <td><a href="{% url 'document' category_document.id %}">{{ category_document.code }}</a></td>
                         <td>{{ category_document.name }}</td>
                         <td>
                             <a class="btn btn-app" href="{% url 'download' category_document.id %}">
@@ -82,7 +82,15 @@
       $(function () {
         $("#example1").DataTable({
           "responsive": true, "lengthChange": false, "autoWidth": false,
-          "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+          "buttons": ["copy", "csv", "excel", "pdf",
+          {
+              extend: 'print',
+              text: 'Печать',
+          },
+          {
+              extend: 'colvis',
+              text: 'Колонки для отображения',
+          }]
         }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
       });
     </script>
