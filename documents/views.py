@@ -5,6 +5,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.views import View
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, Http404
+from django.contrib.admin.models import LogEntry, ACTION_FLAG_CHOICES
 
 from .forms import LoginForm, SignUpForm
 from .utils import get_documents_by_categories_tree
@@ -35,6 +36,11 @@ class CategoryView(LoginRequiredMixin, View):
 class DocumentView(LoginRequiredMixin, View):
     def get(self, request, *args, **kwargs):
         document = Document.objects.get(id=kwargs['document_id'])
+        doc_change_history = [{
+            'action_time': change_info.action_time,
+            'change_message': change_info.get_change_message()
+        } for change_info in LogEntry.objects.filter(content_type_id=9, object_id=document.id)
+        ]
         return render(request, "document.html", {
             'document': {
                 'Категория': document.category.name,
@@ -45,7 +51,8 @@ class DocumentView(LoginRequiredMixin, View):
             },
             'document_id': document.id,
             'document_code': document.code,
-            'title': f'САНАЭксперт | {document.code}'
+            'title': f'САНАЭксперт | {document.code}',
+            'doc_change_history': doc_change_history
         })
 
 
