@@ -76,8 +76,11 @@ WSGI_APPLICATION = 'information_reference.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'information_reference',
+        'USER': 'test523432422345',
+        'PASSWORD': 'A&esfesW*DWDada8AWD@WDDA',
+        'HOST': 'test523432422345.mysql.pythonanywhere-services.com',
     }
 }
 
