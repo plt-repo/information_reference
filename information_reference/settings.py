@@ -77,10 +77,11 @@ WSGI_APPLICATION = 'information_reference.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'test523432422345$information_reference',
-        'USER': 'test523432422345',
-        'PASSWORD': 'A&esfesW*DWDada8AWD@WDDA',
-        'HOST': 'test523432422345.mysql.pythonanywhere-services.com',
+        'NAME': 'information_reference',
+        'USER': 'root',
+        'PASSWORD': '3S&OzujRAG8Eq*Ehg@h3BeJ4DPo',
+        'HOST': 'localhost',
+        'PORT': '3306',
     }
 }
 

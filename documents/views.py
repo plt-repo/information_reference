@@ -2,6 +2,7 @@ import os
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.models import User, Permission
 from django.views import View
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, Http404
@@ -39,7 +40,7 @@ class DocumentView(LoginRequiredMixin, View):
         doc_change_history = [{
             'action_time': change_info.action_time,
             'change_message': change_info.get_change_message()
-        } for change_info in LogEntry.objects.filter(content_type_id=9, object_id=document.id)
+        } for change_info in LogEntry.objects.filter(content_type_id=8, object_id=1)
         ]
         return render(request, "document.html", {
             'document': {
