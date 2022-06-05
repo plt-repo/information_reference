@@ -8,11 +8,6 @@
 
   var $__default = /*#__PURE__*/_interopDefaultLegacy($);
 
-  /**
-   * Constants
-   * ====================================================
-   */
-
   var NAME$d = 'CardWidget';
   var DATA_KEY$d = 'lte.cardwidget';
   var EVENT_KEY$6 = "." + DATA_KEY$d;
@@ -46,7 +41,7 @@
     minimizeIcon: 'fa-compress'
   };
 
-  var CardWidget = /*#__PURE__*/function () {
+  var CardWidget = function () {
     function CardWidget(element, settings) {
       this._element = element;
       this._parent = element.parents(SELECTOR_CARD).first();
@@ -150,7 +145,7 @@
       }
 
       this.maximize();
-    } // Private
+    }
     ;
 
     _proto._init = function _init(card) {
@@ -166,7 +161,7 @@
       $__default["default"](this).find(this._settings.removeTrigger).click(function () {
         _this3.remove();
       });
-    } // Static
+    }
     ;
 
     CardWidget._jQueryInterface = function _jQueryInterface(config) {
@@ -188,10 +183,6 @@
 
     return CardWidget;
   }();
-  /**
-   * Data API
-   * ====================================================
-   */
 
 
   $__default["default"](document).on('click', SELECTOR_DATA_COLLAPSE, function (event) {
@@ -215,10 +206,6 @@
 
     CardWidget._jQueryInterface.call($__default["default"](this), 'toggleMaximize');
   });
-  /**
-   * jQuery API
-   * ====================================================
-   */
 
   $__default["default"].fn[NAME$d] = CardWidget._jQueryInterface;
   $__default["default"].fn[NAME$d].Constructor = CardWidget;
@@ -227,11 +214,6 @@
     $__default["default"].fn[NAME$d] = JQUERY_NO_CONFLICT$d;
     return CardWidget._jQueryInterface;
   };
-
-  /**
-    * Constants
-    * ====================================================
-    */
 
   var NAME$9 = 'ExpandableTable';
   var DATA_KEY$9 = 'lte.expandableTable';
@@ -243,16 +225,12 @@
   var SELECTOR_EXPANDABLE_BODY = '.expandable-body';
   var SELECTOR_DATA_TOGGLE$2 = '[data-widget="expandable-table"]';
   var SELECTOR_ARIA_ATTR = 'aria-expanded';
-  /**
-    * Class Definition
-    * ====================================================
-    */
 
-  var ExpandableTable = /*#__PURE__*/function () {
+  var ExpandableTable = function () {
     function ExpandableTable(element, options) {
       this._options = options;
       this._element = element;
-    } // Public
+    }
 
 
     var _proto = ExpandableTable.prototype;
@@ -299,7 +277,7 @@
         $element.attr(SELECTOR_ARIA_ATTR, 'true');
         $element.trigger($__default["default"].Event(EVENT_EXPANDED$1));
       }
-    } // Static
+    }
     ;
 
     ExpandableTable._jQueryInterface = function _jQueryInterface(operation) {
@@ -319,11 +297,6 @@
 
     return ExpandableTable;
   }();
-  /**
-    * Data API
-    * ====================================================
-    */
-
 
   $__default["default"](SELECTOR_TABLE).ready(function () {
     ExpandableTable._jQueryInterface.call($__default["default"](this), 'init');
@@ -331,10 +304,6 @@
   $__default["default"](document).on('click', SELECTOR_DATA_TOGGLE$2, function () {
     ExpandableTable._jQueryInterface.call($__default["default"](this), 'toggleRow');
   });
-  /**
-    * jQuery API
-    * ====================================================
-    */
 
   $__default["default"].fn[NAME$9] = ExpandableTable._jQueryInterface;
   $__default["default"].fn[NAME$9].Constructor = ExpandableTable;
@@ -343,11 +312,6 @@
     $__default["default"].fn[NAME$9] = JQUERY_NO_CONFLICT$9;
     return ExpandableTable._jQueryInterface;
   };
-
-  /**
-   * Constants
-   * ====================================================
-   */
 
   var NAME$8 = 'Fullscreen';
   var DATA_KEY$8 = 'lte.fullscreen';
@@ -359,16 +323,12 @@
     minimizeIcon: 'fa-compress-arrows-alt',
     maximizeIcon: 'fa-expand-arrows-alt'
   };
-  /**
-   * Class Definition
-   * ====================================================
-   */
 
   var Fullscreen = /*#__PURE__*/function () {
     function Fullscreen(_element, _options) {
       this.element = _element;
       this.options = $__default["default"].extend({}, Default$8, _options);
-    } // Public
+    }
 
 
     var _proto = Fullscreen.prototype;
@@ -407,7 +367,7 @@
       } else if (document.msExitFullscreen) {
         document.msExitFullscreen();
       }
-    } // Static
+    }
     ;
 
     Fullscreen._jQueryInterface = function _jQueryInterface(config) {
@@ -431,11 +391,6 @@
 
     return Fullscreen;
   }();
-  /**
-    * Data API
-    * ====================================================
-    */
-
 
   $__default["default"](document).on('click', SELECTOR_DATA_WIDGET$2, function () {
     Fullscreen._jQueryInterface.call($__default["default"](this), 'toggle');
@@ -443,10 +398,6 @@
   $__default["default"](document).on(EVENT_FULLSCREEN_CHANGE, function () {
     Fullscreen._jQueryInterface.call($__default["default"](SELECTOR_DATA_WIDGET$2), 'toggleIcon');
   });
-  /**
-   * jQuery API
-   * ====================================================
-   */
 
   $__default["default"].fn[NAME$8] = Fullscreen._jQueryInterface;
   $__default["default"].fn[NAME$8].Constructor = Fullscreen;
@@ -455,11 +406,6 @@
     $__default["default"].fn[NAME$8] = JQUERY_NO_CONFLICT$8;
     return Fullscreen._jQueryInterface;
   };
-
-  /**
-   * Constants
-   * ====================================================
-   */
 
   var NAME$5 = 'PushMenu';
   var DATA_KEY$5 = 'lte.pushmenu';
@@ -482,12 +428,8 @@
     noTransitionAfterReload: true,
     animationSpeed: 300
   };
-  /**
-   * Class Definition
-   * ====================================================
-   */
 
-  var PushMenu = /*#__PURE__*/function () {
+  var PushMenu = function () {
     function PushMenu(element, options) {
       this._element = element;
       this._options = $__default["default"].extend({}, Default$5, options);
@@ -497,7 +439,7 @@
       }
 
       this._init();
-    } // Public
+    }
 
 
     var _proto = PushMenu.prototype;
@@ -599,7 +541,7 @@
       } else {
         $body.removeClass(CLASS_NAME_COLLAPSED);
       }
-    } // Private
+    }
     ;
 
     _proto._init = function _init() {
@@ -622,7 +564,7 @@
         _this3.collapse();
       });
       $__default["default"](SELECTOR_WRAPPER).append(overlay);
-    } // Static
+    }
     ;
 
     PushMenu._jQueryInterface = function _jQueryInterface(operation) {
@@ -644,11 +586,6 @@
 
     return PushMenu;
   }();
-  /**
-   * Data API
-   * ====================================================
-   */
-
 
   $__default["default"](document).on('click', SELECTOR_TOGGLE_BUTTON$1, function (event) {
     event.preventDefault();
@@ -663,10 +600,6 @@
   $__default["default"](window).on('load', function () {
     PushMenu._jQueryInterface.call($__default["default"](SELECTOR_TOGGLE_BUTTON$1));
   });
-  /**
-   * jQuery API
-   * ====================================================
-   */
 
   $__default["default"].fn[NAME$5] = PushMenu._jQueryInterface;
   $__default["default"].fn[NAME$5].Constructor = PushMenu;
@@ -675,11 +608,6 @@
     $__default["default"].fn[NAME$5] = JQUERY_NO_CONFLICT$5;
     return PushMenu._jQueryInterface;
   };
-
-  /**
-   * Constants
-   * ====================================================
-   */
 
   var NAME = 'Treeview';
   var DATA_KEY = 'lte.treeview';
@@ -703,16 +631,12 @@
     expandSidebar: false,
     sidebarButtonSelector: '[data-widget="pushmenu"]'
   };
-  /**
-   * Class Definition
-   * ====================================================
-   */
 
-  var Treeview = /*#__PURE__*/function () {
+  var Treeview = function () {
     function Treeview(element, config) {
       this._config = config;
       this._element = element;
-    } // Public
+    }
 
 
     var _proto = Treeview.prototype;
@@ -781,7 +705,7 @@
       } else {
         this.expand($__default["default"](treeviewMenu), parentLi);
       }
-    } // Private
+    }
     ;
 
     _proto._setupListeners = function _setupListeners() {
@@ -797,7 +721,7 @@
       if ($__default["default"]('body').hasClass(CLASS_NAME_SIDEBAR_COLLAPSED)) {
         $__default["default"](this._config.sidebarButtonSelector).PushMenu('expand');
       }
-    } // Static
+    }
     ;
 
     Treeview._jQueryInterface = function _jQueryInterface(config) {
@@ -819,10 +743,6 @@
 
     return Treeview;
   }();
-  /**
-   * Data API
-   * ====================================================
-   */
 
 
   $__default["default"](window).on(EVENT_LOAD_DATA_API, function () {
@@ -830,10 +750,6 @@
       Treeview._jQueryInterface.call($__default["default"](this), 'init');
     });
   });
-  /**
-   * jQuery API
-   * ====================================================
-   */
 
   $__default["default"].fn[NAME] = Treeview._jQueryInterface;
   $__default["default"].fn[NAME].Constructor = Treeview;

@@ -2,7 +2,6 @@ import os
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.models import User, Permission
 from django.views import View
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, Http404
@@ -143,7 +142,6 @@ class LoginView(View):
         }
         form = LoginForm(request.POST)
         next_page = request.POST['next_page'] if request.POST['next_page'] else '/'
-        # check whether it's valid:
         if form.is_valid():
             username = request.POST['username']
             password = request.POST['password']
@@ -184,10 +182,6 @@ class RegisterView(View):
         form = SignUpForm(request.POST)
         if form.is_valid():
             form.save()
-            # username = form.cleaned_data.get('username')
-            # raw_password = form.cleaned_data.get('password1')
-            # user = authenticate(username=username, password=raw_password)
-            # login(request, user)
             return redirect('register_success')
         else:
             return render(request, "register.html", {
