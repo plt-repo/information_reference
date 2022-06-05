@@ -12,7 +12,7 @@
   <link rel="stylesheet" href="{% static 'plugins/datatables-responsive/css/responsive.bootstrap4.min.css' %}">
   <link rel="stylesheet" href="{% static 'plugins/datatables-buttons/css/buttons.bootstrap4.min.css' %}">
   <link rel="stylesheet" href="{% static 'plugins/select2/css/select2.min.css' %}">
-  <link rel="stylesheet" href="{% static 'dist/css/styles.css' %}">
+  <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
@@ -25,12 +25,12 @@
     <ul class="navbar-nav ml-auto">
       <li class="nav-item dropdown user-menu">
         <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
-          <img src="{% static 'dist/img/user2-160x160.jpg' %}" class="user-image img-circle elevation-2" alt="User Image">
+          <img src="{% static 'img/user2-160x160.jpg' %}" class="user-image img-circle elevation-2" alt="User Image">
           <span class="d-none d-md-inline">{{ user.first_name }} {{ user.last_name }}</span>
         </a>
         <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
           <li class="user-header bg-primary">
-            <img src="{% static 'dist/img/user2-160x160.jpg' %}" class="img-circle elevation-2" alt="User Image">
+            <img src="{% static 'img/user2-160x160.jpg' %}" class="img-circle elevation-2" alt="User Image">
 
             <p>
               {{ user.first_name }} {{ user.last_name }}
@@ -51,7 +51,7 @@
   </nav>
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <a href="{% url 'index' %}" class="brand-link">
-      <img src="{% static 'dist/img/Group 4.png' %}" alt="Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+      <img src="{% static 'img/Group 4.png' %}" alt="Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
       <span class="brand-text font-weight-light"><b style="font-weight: 700">САНА</b>Эксперт</span>
     </a>
     <div class="sidebar">
@@ -111,7 +111,7 @@
 <script src="{% static 'plugins/datatables-buttons/js/buttons.print.min.js' %}"></script>
 <script src="{% static 'plugins/datatables-buttons/js/buttons.colVis.min.js' %}"></script>
 <script src="{% static 'plugins/select2/js/select2.full.min.js' %}"></script>
-<script src="{% static 'dist/js/scripts.js' %}"></script>
+<script src="{% static 'js/scripts.js' %}"></script>
 {% block extra_script %}
 {% endblock %}
 </body>
