@@ -1124,8 +1124,6 @@ body.sidebar-collapse:not(.sidebar-mini-xs):not(.sidebar-mini-md):not(.sidebar-m
 .nav-collapse-hide-child .sidebar-mini-xs.sidebar-collapse .menu-open > .nav-treeview,
 .main-sidebar:not(.sidebar-no-expand):hover
 .nav-collapse-hide-child .sidebar-mini-xs.sidebar-collapse .menu-open > .nav-treeview {
-  max-height: -webkit-min-content;
-  max-height: -moz-min-content;
   max-height: min-content;
   -webkit-animation-name: fadeIn;
   animation-name: fadeIn;
