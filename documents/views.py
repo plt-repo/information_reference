@@ -6,7 +6,7 @@ from django.contrib.auth.models import User, Permission
 from django.views import View
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, Http404
-from django.contrib.admin.models import LogEntry, ACTION_FLAG_CHOICES
+from django.contrib.admin.models import LogEntry
 
 from .forms import LoginForm, SignUpForm
 from .utils import get_documents_by_categories_tree
@@ -30,7 +30,8 @@ class CategoryView(LoginRequiredMixin, View):
         return render(request, "category.html", {
             'category_name': category_name,
             'category_documents': category_documents,
-            'title': f'САНАЭксперт | {category_name}'
+            'title': f'САНАЭксперт | {category_name}',
+            'user': request.user
         })
 
 
@@ -55,7 +56,8 @@ class DocumentView(LoginRequiredMixin, View):
             'document_category_id': document.category.id,
             'document_code': document.code,
             'title': f'САНАЭксперт | {document.code}',
-            'doc_change_history': doc_change_history
+            'doc_change_history': doc_change_history,
+            'user': request.user
         })
 
 
@@ -72,7 +74,8 @@ class SearchView(LoginRequiredMixin, View):
                 'created_at': 'Дата создания',
                 'updated_at': 'Дата обновления',
             },
-            'documents': []
+            'documents': [],
+            'user': request.user
         })
 
     def post(self, request, *args, **kwargs):
@@ -109,7 +112,8 @@ class SearchView(LoginRequiredMixin, View):
             },
             'documents': documents,
             'search_text': search_text,
-            'selected_categories': {int(category) for category in categories}
+            'selected_categories': {int(category) for category in categories},
+            'user': request.user
         })
 
 
@@ -210,5 +214,6 @@ class ContactUsView(LoginRequiredMixin, View):
         documents_by_categories_tree = get_documents_by_categories_tree()
         return render(request, "contact-us.html", {
             'documents_by_categories_tree': documents_by_categories_tree,
-            'title': 'САНАЭксперт | Поддержка'
+            'title': 'САНАЭксперт | Поддержка',
+            'user': request.user
         })
