@@ -40,7 +40,7 @@ class DocumentView(LoginRequiredMixin, View):
         doc_change_history = [{
             'action_time': change_info.action_time,
             'change_message': change_info.get_change_message()
-        } for change_info in LogEntry.objects.filter(content_type_id=8, object_id=1)
+        } for change_info in LogEntry.objects.filter(content_type_id=8, object_id=document.id)
         ]
         return render(request, "document.html", {
             'document': {
