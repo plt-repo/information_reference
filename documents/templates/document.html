@@ -1,7 +1,6 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <!-- Content Header (Page header) -->
     <section class="content-header">
       <div class="container-fluid">
         <div class="row mb-2">
@@ -16,24 +15,19 @@
             </ol>
           </div>
         </div>
-      </div><!-- /.container-fluid -->
+      </div>
     </section>
-
-    <!-- Main content -->
     <section class="content">
       <div class="container-fluid">
-        <!-- END ALERTS AND CALLOUTS -->
-
         <div class="row">
           <div class="col-12">
-            <!-- Custom Tabs -->
             <div class="card">
               <div class="card-header d-flex p-0">
                 <ul class="nav nav-pills ml-auto p-2">
                   <li class="nav-item"><a class="nav-link active" href="#tab_1" data-toggle="tab">Информация</a></li>
                   <li class="nav-item"><a class="nav-link" href="#tab_2" data-toggle="tab">История изменений</a></li>
                 </ul>
-              </div><!-- /.card-header -->
+              </div>
               <div class="card-body">
                 <div class="tab-content">
                   <div class="tab-pane active" id="tab_1">
@@ -56,7 +50,6 @@
                         </tbody>
                         </table>
                   </div>
-                  <!-- /.tab-pane -->
                   <div class="tab-pane" id="tab_2">
                     <table class="table table-bordered">
                       <thead>
@@ -75,28 +68,11 @@
                       </tbody>
                     </table>
                   </div>
-                  <!-- /.tab-pane -->
-                  <div class="tab-pane" id="tab_3">
-                    Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                    Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
-                    when an unknown printer took a galley of type and scrambled it to make a type specimen book.
-                    It has survived not only five centuries, but also the leap into electronic typesetting,
-                    remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset
-                    sheets containing Lorem Ipsum passages, and more recently with desktop publishing software
-                    like Aldus PageMaker including versions of Lorem Ipsum.
-                  </div>
-                  <!-- /.tab-pane -->
                 </div>
-                <!-- /.tab-content -->
-              </div><!-- /.card-body -->
+              </div>
             </div>
-            <!-- ./card -->
           </div>
-          <!-- /.col -->
         </div>
-        <!-- /.row -->
-        <!-- END CUSTOM TABS -->
-      </div><!-- /.container-fluid -->
+      </div>
     </section>
-    <!-- /.content -->
 {% endblock %}
